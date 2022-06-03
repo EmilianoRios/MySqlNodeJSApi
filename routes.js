@@ -13,4 +13,16 @@ routes.get('/', (req, res) => {
     })
 })
 
+routes.post('/', (req, res) => {
+    req.getConnection((err, conn) => {
+        if (err) return res.send(err)
+
+        conn.query('INSERT INTO protocolo_personal set ?', [req.body], (err, rows) => {
+            if (err) return res.send(err)
+
+            res.send('Personal guardado!')
+        })
+    })
+})
+
 module.exports = routes
